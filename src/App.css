@@ -1,0 +1,20 @@
+/* App.css */
+@import 'leaflet/dist/leaflet.css';
+
+body {
+    margin: 0px 10px 5px 5px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box; /* To ensure padding and borders don't affect overall size */
+
+  }
+  
+  .container {
+    padding: 20px; /* Add padding to the entire app */
+  }
+  
+  main {
+    padding: 20px;
+
+  }
+  
