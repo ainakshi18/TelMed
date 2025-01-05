@@ -41,7 +41,7 @@ const StoreNavbar = () => {
             </a>
           </li>
           <li>
-            <a href="/store/stock" className="hover:text-gray-300">
+            <a href="/Store/Stock" className="hover:text-gray-300">
               Stock
             </a>
           </li>
