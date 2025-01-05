@@ -5,7 +5,7 @@ const StoreDashboard = () => {
   return (
     <div>
         <StoreNavbar/>
-        StoreDashboard</div>
+        StoreDashboard hi</div>
   )
 }
 
