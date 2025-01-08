@@ -7,7 +7,7 @@ const SignupPage = () => {
     name: "",
     email: "",
     password: "",
-    userRole: "PATIENT", 
+    userRole: "ROLE_PATIENT", 
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -27,19 +27,29 @@ const SignupPage = () => {
       const response = await axios.post("http://localhost:8181/api/auth/signup", formData);
 
       // Assuming the response contains the token
-      const { token, role, fullname } = response.data;
+      const { token, role, fullname ,userId} = response.data;
       console.log(response.data);
-      localStorage.setItem("jwt", token);
       localStorage.setItem("role", role); // Save role in localStorage
       localStorage.setItem("username", fullname);
       setSuccess("Account created successfully!");
 
       // Navigate to the appropriate page based on role
-      if (role === "PATIENT") {
-        navigate("/");
-      } else if (role === "DOCTOR") {
-        navigate("/doctor-dashboard");
-      } else if (role === "PHARMACIST") {
+      if (role === "ROLE_PATIENT") {
+        
+        localStorage.setItem("jwt", token);
+          
+        localStorage.setItem("patientId", userId);
+        navigate("/create-patient");
+      } else if (role === "ROLE_DOCTOR") {
+        
+        localStorage.setItem("doctorjwt", token);
+        localStorage.setItem("doctorId", userId);
+        navigate("/create-doctor");
+      } else if (role === "ROLE_PHARMACIST") {
+        
+        localStorage.setItem("storejwt", token);
+          
+        localStorage.setItem("storeId", userId);
         navigate("/medical-store-dashboard");
       } else {
         setError("Unknown role. Please try again.");
@@ -56,7 +66,6 @@ const SignupPage = () => {
           Create Account
         </h2>
         <p className="text-center text-gray-600 mb-6">
-          Join SARATHI and be a part of making a difference!
         </p>
         <form className="mt-6" onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -116,9 +125,9 @@ const SignupPage = () => {
               className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300 transition duration-300"
               required
             >
-              <option value="PATIENT">Patient</option>
-              <option value="DOCTOR">Doctor</option>
-              <option value="PHARMACIST">Medical Store</option>
+              <option value="ROLE_PATIENT">Patient</option>
+              <option value="ROLE_DOCTOR">Doctor</option>
+              <option value="ROLE_PHARMACIST">Medical Store</option>
             </select>
           </div>
           <button

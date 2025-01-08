@@ -10,9 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@jitsi/react-sdk": "^1.4.0",
     "axios": "^1.7.9",
+    "lucide-react": "^0.469.0",
+    "peer": "^1.0.2",
+    "peerjs": "^1.5.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
+    "react-player": "^2.16.0",
     "react-router": "^7.1.1",
     "react-router-dom": "^7.1.1",
     "telmed-frontend": "file:"
@@ -30,6 +36,7 @@
     "globals": "^15.14.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
-    "vite": "^6.0.5"
+    "vite": "^6.0.5",
+    "vite-plugin-pwa": "^0.21.1"
   }
 }

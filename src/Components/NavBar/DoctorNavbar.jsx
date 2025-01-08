@@ -9,7 +9,7 @@ const DoctorNavbar = () => {
 
   useEffect(() => {
     // Simulate checking for user login (e.g., token or user data in localStorage)
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("doctorjwt");
     const user = localStorage.getItem("username") || localStorage.getItem("useremail");
     const userRole = localStorage.getItem("role");
 

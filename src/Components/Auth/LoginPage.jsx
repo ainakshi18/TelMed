@@ -22,30 +22,41 @@ const LoginPage = () => {
     setSuccess("");
 
     try {
-      const response = await axios.post("http://localhost:8181/api/auth/login", formData);
+      const response = await axios.post(
+        "http://localhost:8181/api/auth/login",
+        formData
+      );
 
       if (response.status === 200) {
-        const { token, role } = response.data;
-
+        const { token, role, userId } = response.data;
 
         // Store the token in local storage
-        localStorage.setItem("jwt", token);
-        localStorage.setItem("role", role);
-        setSuccess("Login successful!");
 
-        if (formData.role === "PATIENT") {
+        localStorage.setItem("role", role);
+        console.log(response.data);
+        setSuccess("Login successful!");
+        if (role === "ROLE_PATIENT") {
+          localStorage.setItem("jwt", token);
+
+          localStorage.setItem("patientId", userId);
           navigate("/");
-        } else if (formData.role === "DOCTOR") {
+        } else if (role === "ROLE_DOCTOR") {
+          localStorage.setItem("doctorjwt", token);
+          localStorage.setItem("doctorId", userId);
           navigate("/doctor-dashboard");
-        } else if (formData.role === "PHARMACIST") {
+        } else if (role === "ROLE_PHARMACIST") {
+          localStorage.setItem("storejwt", token);
+
+          localStorage.setItem("storeId", userId);
           navigate("/medical-store-dashboard");
         } else {
           setError("Unknown role. Please try again.");
         }
-     
       }
     } catch (err) {
-      setError(err.response?.data?.message || "An error occurred during login.");
+      setError(
+        err.response?.data?.message || "An error occurred during login."
+      );
     }
   };
 
@@ -72,7 +83,10 @@ const LoginPage = () => {
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="password" className="block text-blue-700 font-medium">
+            <label
+              htmlFor="password"
+              className="block text-blue-700 font-medium"
+            >
               Password
             </label>
             <input
