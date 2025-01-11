@@ -1,42 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StoreNavbar from '../NavBar/StoreNavbar';
-// Sample Data - Orders (Ideally, this would come from a backend)
-const orderData = [
-  {
-    id: 1,
-    patientName: 'Alice Johnson',
-    location: '123 Medical Street, City',
-    contact: '+1 234-567-8900',
-    medicine: 'Aspirin',
-    quantity: 2,
-    status: 'Not Fulfilled',
-    timestamp: '2025-01-05T10:30:00Z', // ISO 8601 format
-  },
-  {
-    id: 2,
-    patientName: 'Bob Williams',
-    location: '456 Health Avenue, City',
-    contact: '+1 345-678-9012',
-    medicine: 'Ibuprofen',
-    quantity: 3,
-    status: 'Not Fulfilled',
-    timestamp: '2025-01-05T11:00:00Z',
-  },
-  {
-    id: 3,
-    patientName: 'Charlie Davis',
-    location: '789 Wellness Road, City',
-    contact: '+1 456-789-0123',
-    medicine: 'Paracetamol',
-    quantity: 1,
-    status: 'Fulfilled',
-    timestamp: '2025-01-04T09:45:00Z',
-  },
-];
 
 const StoreOrderBoard = () => {
-  const [orders, setOrders] = useState(orderData);
-  const [searchQuery, setSearchQuery] = useState(''); // New state for search query
+  const [orders, setOrders] = useState([]);
+  const [medicineRequests, setMedicineRequests] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const storeId = localStorage.getItem('storeId');
+  const jwtToken = localStorage.getItem('storejwt');
+
+  useEffect(() => {
+    // Fetch Medicine Requests for the Store
+    fetch(`http://localhost:8181/api/medicine-request/store/${storeId}`, {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setMedicineRequests(data))
+      .catch((error) => console.error('Error fetching medicine requests:', error));
+
+    // Fetch Orders for the Store
+    fetch(`http://localhost:8181/api/order/store/${storeId}`, {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setOrders(data))
+      .catch((error) => console.error('Error fetching orders:', error));
+  }, [storeId, jwtToken]);
 
   const handleOrderFulfillment = (id, status) => {
     const updatedOrders = orders.map((order) =>
@@ -47,19 +39,21 @@ const StoreOrderBoard = () => {
 
   const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
-    return date.toLocaleString(); // Format to a readable date-time string
+    return date.toLocaleString();
   };
 
   // Filter orders by medicine name
   const filteredOrders = orders.filter((order) =>
-    order.medicine.toLowerCase().includes(searchQuery.toLowerCase())
+    order.medicineId.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <StoreNavbar/>
+      <StoreNavbar />
       <div className="max-w-4xl mx-auto">
-        {/* Order History Header */}
+      
+
+        {/* Orders Section */}
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold">Order History</h2>
 
@@ -85,14 +79,13 @@ const StoreOrderBoard = () => {
                     className="bg-white p-4 border rounded-lg shadow-md flex justify-between items-center"
                   >
                     <div className="flex-1">
-                      <h3 className="font-semibold text-lg">{order.patientName}</h3>
-                      <p className="text-sm text-gray-600">Location: {order.location}</p>
-                      <p className="text-sm text-gray-600">Contact: {order.contact}</p>
+                      <h3 className="font-semibold text-lg">Patient ID: {order.patientId}</h3>
+                      <p className="text-sm text-gray-600">Medicine ID: {order.medicineId}</p>
+                      <p className="text-sm text-gray-600">Quantity: {order.quantity}</p>
                       <p className="text-sm text-gray-600">Order Time: {formatTimestamp(order.timestamp)}</p>
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm text-gray-600">Medicine: {order.medicine}</p>
-                      <p className="text-sm text-gray-600">Quantity: {order.quantity}</p>
+                      <p className="text-sm text-gray-600">Status: {order.status}</p>
                     </div>
                     <div className="flex items-center gap-4">
                       <span

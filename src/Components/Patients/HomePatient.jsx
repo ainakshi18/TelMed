@@ -1,15 +1,18 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import PatientNavbar from "../NavBar/PatientNavbar";
 import { FaHeartbeat, FaUserMd, FaHandsHelping, FaPhone, FaHospitalAlt, FaClipboardList, FaMedkit, FaStethoscope, FaClock, FaCheckCircle, FaSmile, FaVideo, FaCloud, FaWifi, FaShippingFast, FaLanguage, FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import "./HomePatient.css";
 
 const HomePatient = () => {
+  const { t } = useTranslation(); // Initialize translation hook
+
   return (
     <div className="home-patient-container">
       <PatientNavbar />
       <header className="home-header">
-        <h1 className="home-title">Aarogya Dwaar</h1>
-        <p className="home-subtitle">Your Gateway to Health and Healing</p>
+        <h1 className="home-title">{t('Aarogya Disha')}</h1>
+        <p className="home-subtitle">{t('Your Gateway to Health and Healing')}</p>
       </header>
 
       {/* Image Gallery Section */}
@@ -57,47 +60,77 @@ const HomePatient = () => {
       {/* Quotes Section */}
       <section className="quotes-section">
         <div className="quotes-container">
-          <div className="quote-box">"Health is the greatest wealth."</div>
-          <div className="quote-box">"An ounce of prevention is worth a pound of cure."</div>
-          <div className="quote-box">"Your health is an investment, not an expense."</div>
+          <div className="quote-box">{t('Health is the greatest wealth.')}</div>
+          <div className="quote-box">{t('An ounce of prevention is worth a pound of cure.')}</div>
+          <div className="quote-box">{t('Your health is an investment, not an expense.')}</div>
         </div>
       </section>
-
+      {/* Ayushmann Bharat Section */}
+      <section className="ayushmann-bharat-section">
+  <h2 className="section-title">Ayushmann Bharat Mission</h2>
+  <div className="ayushmann-bharat-container flex flex-col md:flex-row items-center justify-between">
+    {/* Image Column */}
+    <div className="ayushmann-bharat-logo-container w-full md:w-1/2 mb-4 md:mb-0">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/en/1/1a/Ayushman_Bharat_logo.png"
+        alt="Ayushmann Bharat Logo"
+        className="ayushmann-bharat-logo mx-auto"
+      />
+    </div>
+    {/* Information Column */}
+    <div className="ayushmann-bharat-info-container w-full md:w-1/2 text-center md:text-left">
+      <p>
+        The <strong>Ayushmann Bharat Yojna</strong> is India's flagship healthcare scheme, offering free medical treatment up to ₹5 lakh annually to underprivileged families. It ensures that every citizen has access to quality healthcare without the financial burden. With over 10 crore families covered, it's a major step towards building a healthier nation.
+      </p>
+      <p>
+        Whether it's for hospitalization, surgery, or medical tests, Ayushmann Bharat is here to make healthcare affordable for all.
+      </p>
+      <a 
+        href="https://pmjay.gov.in/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="ayushmann-bharat-btn bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+      >
+        Visit Ayushmann Bharat Official Website
+      </a>
+    </div>
+  </div>
+</section>
       {/* Features Section */}
       <section className="features-section">
-        <h2 className="section-title">Our Features</h2>
+        <h2 className="section-title">{t('Our Features')}</h2>
         <div className="features-container">
           <div className="feature">
             <FaVideo className="feature-icon" />
-            <h3>Video Consultation with AI Assistance</h3>
-            <p>Virtual doctor consultations supported by AI for preliminary symptom analysis.</p>
+            <h3>{t('Video Consultation with AI Assistance')}</h3>
+            <p>{t('Virtual doctor consultations supported by AI for preliminary symptom analysis.')}</p>
           </div>
           <div className="feature">
             <FaCloud className="feature-icon" />
-            <h3>Digital Health Records</h3>
-            <p>Cloud-based storage for patients’ medical histories, accessible from any location.</p>
+            <h3>{t('Digital Health Records')}</h3>
+            <p>{t('Cloud-based storage for patients’ medical histories, accessible from any location.')}</p>
           </div>
           <div className="feature">
             <FaWifi className="feature-icon" />
-            <h3>Offline Accessibility</h3>
-            <p>Access records and consult via SMS for areas with poor internet connectivity.</p>
+            <h3>{t('Offline Accessibility')}</h3>
+            <p>{t('Access records and consult via SMS for areas with poor internet connectivity.')}</p>
           </div>
           <div className="feature">
             <FaShippingFast className="feature-icon" />
-            <h3>Medication Delivery Integration</h3>
-            <p>Tie-ups with local pharmacies to deliver prescribed medications to your doorstep.</p>
+            <h3>{t('Medication Delivery Integration')}</h3>
+            <p>{t('Tie-ups with local pharmacies to deliver prescribed medications to your doorstep.')}</p>
           </div>
           <div className="feature">
             <FaLanguage className="feature-icon" />
-            <h3>Multilingual Support</h3>
-            <p>Interface available in regional languages for better accessibility and comfort.</p>
+            <h3>{t('Multilingual Support')}</h3>
+            <p>{t('Interface available in regional languages for better accessibility and comfort.')}</p>
           </div>
         </div>
       </section>
 
       {/* Top Specialists Section */}
       <section className="specialists-section">
-        <h2 className="section-title">Our Top Specialists</h2>
+        <h2 className="section-title">{t('Our Top Specialists')}</h2>
         <div className="specialists-container">
           <div className="specialist">
             <img
@@ -105,8 +138,8 @@ const HomePatient = () => {
               alt="Dr. John Doe"
               className="specialist-image"
             />
-            <h3>Dr. John Doe</h3>
-            <p>Cardiologist</p>
+            <h3>{t('Dr. John Doe')}</h3>
+            <p>{t('Cardiologist')}</p>
           </div>
           <div className="specialist">
             <img
@@ -114,8 +147,8 @@ const HomePatient = () => {
               alt="Dr. Jane Smith"
               className="specialist-image"
             />
-            <h3>Dr. Jane Smith</h3>
-            <p>Dermatologist</p>
+            <h3>{t('Dr. Jane Smith')}</h3>
+            <p>{t('Dermatologist')}</p>
           </div>
           <div className="specialist">
             <img
@@ -123,8 +156,8 @@ const HomePatient = () => {
               alt="Dr. Mark Lee"
               className="specialist-image"
             />
-            <h3>Dr. Mark Lee</h3>
-            <p>Pediatrician</p>
+            <h3>{t('Dr. Mark Lee')}</h3>
+            <p>{t('Pediatrician')}</p>
           </div>
           {/* New Specialist Images */}
           <div className="specialist">
@@ -133,8 +166,8 @@ const HomePatient = () => {
               alt="Dr. Emily Davis"
               className="specialist-image"
             />
-            <h3>Dr. Emily Davis</h3>
-            <p>Gynecologist</p>
+            <h3>{t('Dr. Emily Davis')}</h3>
+            <p>{t('Gynecologist')}</p>
           </div>
           <div className="specialist">
             <img
@@ -142,8 +175,8 @@ const HomePatient = () => {
               alt="Dr. Alex Turner"
               className="specialist-image"
             />
-            <h3>Dr. Alex Turner</h3>
-            <p>Orthopedic Surgeon</p>
+            <h3>{t('Dr. Alex Turner')}</h3>
+            <p>{t('Orthopedic Surgeon')}</p>
           </div>
           <div className="specialist">
             <img
@@ -151,79 +184,73 @@ const HomePatient = () => {
               alt="Dr. Sarah Brown"
               className="specialist-image"
             />
-            <h3>Dr. Sarah Brown</h3>
-            <p>Neurologist</p>
+            <h3>{t('Dr. Sarah Brown')}</h3>
+            <p>{t('Neurologist')}</p>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
       <section className="faq-section">
-        <h2 className="section-title">Frequently Asked Questions</h2>
+        <h2 className="section-title">{t('Frequently Asked Questions')}</h2>
         <div className="faq-container">
           <details>
-            <summary>How do I make an appointment?</summary>
-            <p>You can make an appointment by clicking on the Doctors image in the Doctor section.</p>
+            <summary>{t('How do I make an appointment?')}</summary>
+            <p>{t('You can make an appointment by clicking on the Doctors image in the Doctor section.')}</p>
           </details>
           <details>
-            <summary>Do I need to create an account to book an appointment?</summary>
-            <p>Yes, to streamline the booking process and provide better services, we recommend creating an account. You can register with your email address.</p>
+            <summary>{t('Do I need to create an account to book an appointment?')}</summary>
+            <p>{t('Yes, to streamline the booking process and provide better services, we recommend creating an account. You can register with your email address.')}</p>
           </details>
           <details>
-            <summary>Can I reschedule or cancel my appointment?</summary>
-            <p>Yes, you can reschedule or cancel your appointment with at least 24 hours' notice.</p>
+            <summary>{t('Can I reschedule or cancel my appointment?')}</summary>
+            <p>{t('Yes, you can reschedule or cancel your appointment with at least 24 hours\' notice.')}</p>
           </details>
           <details>
-            <summary>What types of specialists are available on your platform?</summary>
-            <p>We offer a wide range of medical specialists including cardiologists, dermatologists, pediatricians, orthopedists, neurologists, and more. You can browse the specialists and find the one that best suits your needs.</p>
+            <summary>{t('What types of specialists are available on your platform?')}</summary>
+            <p>{t('We offer a wide range of medical specialists including cardiologists, dermatologists, pediatricians, orthopedists, neurologists, and more. You can browse the specialists and find the one that best suits your needs.')}</p>
           </details>
           <details>
-            <summary>Do you offer telehealth consultations?</summary>
-            <p>Yes, we offer telehealth consultations for some services. Contact us for more information.</p>
+            <summary>{t('Do you offer telehealth consultations?')}</summary>
+            <p>{t('Yes, we offer telehealth consultations for some services. Contact us for more information.')}</p>
           </details>
           <details>
-            <summary>What should I do if I miss my appointment?</summary>
-            <p>If you miss an appointment, we encourage you to reschedule it as soon as possible. You can contact our support team for assistance in rescheduling or finding another available time slot.</p>
+            <summary>{t('What should I do if I miss my appointment?')}</summary>
+            <p>{t('If you miss an appointment, we encourage you to reschedule it as soon as possible. You can contact our support team for assistance in rescheduling or finding another available time slot.')}</p>
           </details>
         </div>
       </section>
 
       {/* About Us Section */}
       <section className="healthcare-info">
-        <h2 className="section-title">About Us</h2>
-        <p>
-          We are a healthcare platform committed to providing affordable and accessible medical services. Our goal is to connect patients with trusted doctors and healthcare providers to offer high-quality care.
-        </p>
+        <h2 className="section-title">{t('About Us')}</h2>
+        <p>{t('We are a healthcare platform committed to providing affordable and accessible medical services. Our goal is to connect patients with trusted doctors and healthcare providers to offer high-quality care.')}</p>
       </section>
 
       <footer className="footer">
-  <div className="footer-content">
-    <div className="footer-left">
-      <h3 className="footer-logo">HealthTech</h3>
-      <p>Your health, our priority. Empowering healthcare with technology.</p>
-    </div>
-    <div className="footer-right">
-      <div className="footer-links">
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div className="footer-social">
-        <a href="https://facebook.com" className="social-icon"><FaFacebook /></a>
-        <a href="https://twitter.com" className="social-icon"><FaTwitter /></a>
-        <a href="https://linkedin.com" className="social-icon"><FaLinkedin /></a>
-        <a href="https://instagram.com" className="social-icon"><FaInstagram /></a>
-      </div>
-    </div>
-  </div>
-  <div className="footer-bottom">
-    <p>&copy; 2025 HealthTech. All rights reserved.</p>
-  </div>
-</footer>
-
+        <div className="footer-content">
+          <div className="footer-left">
+            <h3 className="footer-logo">{t('HealthTech')}</h3>
+            <p>{t('Your health, our priority. Empowering healthcare with technology.')}</p>
+          </div>
+          <div className="footer-right">
+            <div className="footer-links">
+              <ul>
+                <li><a href="#home">{t('Home')}</a></li>
+                <li><a href="#about">{t('About Us')}</a></li>
+                <li><a href="#services">{t('Services')}</a></li>
+                <li><a href="#contact">{t('Contact')}</a></li>
+              </ul>
+            </div>
+            <div className="footer-socials">
+              <a href="https://facebook.com"><FaFacebook /></a>
+              <a href="https://twitter.com"><FaTwitter /></a>
+              <a href="https://instagram.com"><FaInstagram /></a>
+              <a href="https://linkedin.com"><FaLinkedin /></a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

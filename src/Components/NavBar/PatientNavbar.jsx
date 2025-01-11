@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import Logo from '../../Images/Logo.jpg';
 
 const PatientNavbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInitials, setUserInitials] = useState("");
   const [role, setRole] = useState("");
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,50 +29,61 @@ const PatientNavbar = () => {
     }
   }, []);
 
+  const handleLanguageChange = (e) => {
+    const selectedLanguage = e.target.value;
+    i18n.changeLanguage(selectedLanguage); // Change the language
+  };
+
   const handleButtonClick = () => {
-      navigate("/patient-profile");
+    navigate("/patient-profile");
   };
 
   return (
     <nav className="bg-blue-600 bg-opacity-80 text-white py-4 px-6 border rounded">
       <ul className="flex justify-between items-center">
-        <li className="text-lg font-bold">Logo</li>
+      <li>
+  <img
+    src={Logo} 
+    alt="Logo"
+    className="h-20 w-20 object-contain"
+  />
+</li>
         <div className="flex gap-4 items-center">
           <li>
             <a href="/" className="hover:text-gray-300">
-              Home
+              {t("Home")}
             </a>
           </li>
           <li>
             <a href="/doctors" className="hover:text-gray-300">
-              Doctors
+              {t("Doctors")}
             </a>
           </li>
           <li>
             <a href="/awareness" className="hover:text-gray-300">
-              Awareness
+              {t("Awareness")}
             </a>
           </li>
           <li>
             <a href="/first-aid" className="hover:text-gray-300">
-              First Aid
+              {t("First Aid")}
             </a>
           </li>
           <li>
             <a href="/medical-store" className="hover:text-gray-300">
-              Medical Store
+              {t("Medical Store")}
             </a>
           </li>
           <li>
             <a href="/appointments" className="hover:text-gray-300">
-              Appointments
+              {t("Appointments")}
             </a>
           </li>
 
           {!isLoggedIn ? (
             <li>
               <a href="/signup" className="hover:text-gray-300">
-                Sign In
+                {t("SignIn")}
               </a>
             </li>
           ) : (
@@ -82,6 +96,19 @@ const PatientNavbar = () => {
               </div>
             </li>
           )}
+
+          {/* Language Selector */}
+          <li>
+            <select
+              className="bg-blue-700 text-white px-2 py-1 rounded"
+              onChange={handleLanguageChange}
+              defaultValue={i18n.language}
+            >
+              <option value="en">English</option>
+              <option value="mr">मराठी</option>
+              <option value="hi">हिंदी</option>
+            </select>
+          </li>
         </div>
       </ul>
     </nav>

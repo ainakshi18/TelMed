@@ -1,0 +1,274 @@
+{
+  "Logo": "Logo",
+  "Home": "Home",
+  "Doctors": "Doctors",
+  "Awareness": "Awareness",
+  "First Aid": "First Aid",
+  "Medical Store": "Medical Store",
+  "Appointments": "Appointments",
+  "Sign In": "Sign In",
+  "Aarogya Disha": "Aarogya Disha",
+  "Your Gateway to Health and Healing": "Your Gateway to Health and Healing",
+  "Health is the greatest wealth.": "Health is the greatest wealth.",
+  "An ounce of prevention is worth a pound of cure.": "An ounce of prevention is worth a pound of cure.",
+  "Your health is an investment, not an expense.": "Your health is an investment, not an expense.",
+  "Our Features": "Our Features",
+  "Video Consultation with AI Assistance": "Video Consultation with AI Assistance",
+  "Virtual doctor consultations supported by AI for preliminary symptom analysis.": "Virtual doctor consultations supported by AI for preliminary symptom analysis.",
+  "Digital Health Records": "Digital Health Records",
+  "Cloud-based storage for patients’ medical histories, accessible from any location.": "Cloud-based storage for patients’ medical histories, accessible from any location.",
+  "Offline Accessibility": "Offline Accessibility",
+  "Access records and consult via SMS for areas with poor internet connectivity.": "Access records and consult via SMS for areas with poor internet connectivity.",
+  "Medication Delivery Integration": "Medication Delivery Integration",
+  "Tie-ups with local pharmacies to deliver prescribed medications to your doorstep.": "Tie-ups with local pharmacies to deliver prescribed medications to your doorstep.",
+  "Multilingual Support": "Multilingual Support",
+  "Interface available in regional languages for better accessibility and comfort.": "Interface available in regional languages for better accessibility and comfort.",
+  "Our Top Specialists": "Our Top Specialists",
+  "Dr. John Doe": "Dr. John Doe",
+  "Cardiologist": "Cardiologist",
+  "Dr. Jane Smith": "Dr. Jane Smith",
+  "Dermatologist": "Dermatologist",
+  "Dr. Mark Lee": "Dr. Mark Lee",
+  "Pediatrician": "Pediatrician",
+  "Dr. Emily Davis": "Dr. Emily Davis",
+  "Gynecologist": "Gynecologist",
+  "Dr. Alex Turner": "Dr. Alex Turner",
+  "Orthopedic Surgeon": "Orthopedic Surgeon",
+  "Dr. Sarah Brown": "Dr. Sarah Brown",
+  "Neurologist": "Neurologist",
+  "Frequently Asked Questions": "Frequently Asked Questions",
+  "How do I make an appointment?": "How do I make an appointment?",
+  "You can make an appointment by clicking on the Doctors image in the Doctor section.": "You can make an appointment by clicking on the Doctors image in the Doctor section.",
+  "Do I need to create an account to book an appointment?": "Do I need to create an account to book an appointment?",
+  "Yes, to streamline the booking process and provide better services, we recommend creating an account. You can register with your email address.": "Yes, to streamline the booking process and provide better services, we recommend creating an account. You can register with your email address.",
+  "Can I reschedule or cancel my appointment?": "Can I reschedule or cancel my appointment?",
+  "Yes, you can reschedule or cancel your appointment with at least 24 hours' notice.": "Yes, you can reschedule or cancel your appointment with at least 24 hours' notice.",
+  "What types of specialists are available on your platform?": "What types of specialists are available on your platform?",
+  "We offer a wide range of medical specialists including cardiologists, dermatologists, pediatricians, orthopedists, neurologists, and more. You can browse the specialists and find the one that best suits your needs.": "We offer a wide range of medical specialists including cardiologists, dermatologists, pediatricians, orthopedists, neurologists, and more. You can browse the specialists and find the one that best suits your needs.",
+  "Do you offer telehealth consultations?": "Do you offer telehealth consultations?",
+  "Yes, we offer telehealth consultations for some services. Contact us for more information.": "Yes, we offer telehealth consultations for some services. Contact us for more information.",
+  "What should I do if I miss my appointment?": "What should I do if I miss my appointment?",
+  "If you miss an appointment, we encourage you to reschedule it as soon as possible. You can contact our support team for assistance in rescheduling or finding another available time slot.": "If you miss an appointment, we encourage you to reschedule it as soon as possible. You can contact our support team for assistance in rescheduling or finding another available time slot.",
+  "About Us": "About Us",
+  "We are a healthcare platform committed to providing affordable and accessible medical services. Our goal is to connect patients with trusted doctors and healthcare providers to offer high-quality care.": "We are a healthcare platform committed to providing affordable and accessible medical services. Our goal is to connect patients with trusted doctors and healthcare providers to offer high-quality care.",
+  "HealthTech": "HealthTech",
+  "Your health, our priority. Empowering healthcare with technology.": "Your health, our priority. Empowering healthcare with technology.",
+  "Services": "Services",
+  "Contact": "Contact",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  "Your Health, Our Priority": "Your Health, Our Priority",
+  "Explore tips, campaigns, and resources to stay healthy and informed.": "Explore tips, campaigns, and resources to stay healthy and informed.",
+  "Learn More": "Learn More",
+  "Health Awareness": "Health Awareness",
+  "Stay informed and updated with tips to improve your health.": "Stay informed and updated with tips to improve your health.",
+  "Health is not just about what you’re eating. It’s also about what you’re thinking and saying.": "Health is not just about what you’re eating. It’s also about what you’re thinking and saying.",
+  "Read More": "Read More",
+  "Boost Your Immunity": "Boost Your Immunity",
+  "Learn how to enhance your body's natural defenses.": "Learn how to enhance your body's natural defenses.",
+  "The greatest wealth is health.": "The greatest wealth is health.",
+  "Managing Stress": "Managing Stress",
+  "Discover effective techniques to handle stress and anxiety.": "Discover effective techniques to handle stress and anxiety.",
+  "It’s not stress that kills us, it is our reaction to it.": "It’s not stress that kills us, it is our reaction to it.",
+  "Healthy Eating Habits": "Healthy Eating Habits",
+  "Adopt a balanced diet for a healthier life.": "Adopt a balanced diet for a healthier life.",
+  "Let food be thy medicine and medicine be thy food.": "Let food be thy medicine and medicine be thy food.",
+  "The Importance of Hydration": "The Importance of Hydration",
+  "Stay hydrated for better health and energy.": "Stay hydrated for better health and energy.",
+  "Water is the driving force of all nature.": "Water is the driving force of all nature.",
+  "Exercise for Mental Health": "Exercise for Mental Health",
+  "Exercise isn’t just for the body—it's for your mind, too.": "Exercise isn’t just for the body—it's for your mind, too.",
+  "Exercise is a celebration of what your body can do, not a punishment for what you ate.": "Exercise is a celebration of what your body can do, not a punishment for what you ate.",
+  "Sleep Well, Live Well": "Sleep Well, Live Well",
+  "Quality sleep is essential for your overall health.": "Quality sleep is essential for your overall health.",
+  "Sleep is the best meditation.": "Sleep is the best meditation.",
+  "Signs of Vitamin Deficiency": "Signs of Vitamin Deficiency",
+  "Learn how to identify and prevent vitamin deficiencies.": "Learn how to identify and prevent vitamin deficiencies.",
+  "A vitamin a day keeps the deficiencies away.": "A vitamin a day keeps the deficiencies away.",
+  "The Power of Meditation": "The Power of Meditation",
+  "Unlock the benefits of meditation for your mind and body.": "Unlock the benefits of meditation for your mind and body.",
+  "Meditation is the soul’s perspective glass.": "Meditation is the soul’s perspective glass.",
+  "Health Awareness Videos": "Health Awareness Videos",
+  "Video 1": "Video 1",
+  "Video 2": "Video 2",
+  "Video 3": "Video 3",
+  "Upcoming Health Campaigns": "Upcoming Health Campaigns",
+  "Health for All Campaign": "Health for All Campaign",
+  "Date": "Date",
+  "Location": "Location",
+  "Join us for an inclusive health campaign focused on making healthcare accessible to all. We will provide free consultations, distribute health resources, and offer wellness tips to the community.": "Join us for an inclusive health campaign focused on making healthcare accessible to all. We will provide free consultations, distribute health resources, and offer wellness tips to the community.",
+  "Join the Campaign": "Join the Campaign",
+  "Immunity Boosters Event": "Immunity Boosters Event",
+  "This event focuses on educating the public on ways to naturally boost immunity. It will include free supplements, workshops on diet, and physical activities to keep your immune system strong.": "This event focuses on educating the public on ways to naturally boost immunity. It will include free supplements, workshops on diet, and physical activities to keep your immune system strong.",
+  "Join the Event": "Join the Event",
+  "Stress-Free Living Workshop": "Stress-Free Living Workshop",
+  "This workshop will teach practical techniques for managing stress, such as mindfulness, meditation, and breathing exercises. Join us to reduce stress and live a more peaceful life.": "This workshop will teach practical techniques for managing stress, such as mindfulness, meditation, and breathing exercises. Join us to reduce stress and live a more peaceful life.",
+  "Join the Workshop": "Join the Workshop",
+  "Mental Health Awareness Campaign": "Mental Health Awareness Campaign",
+  "This campaign aims to raise awareness about mental health, break stigmas, and provide valuable resources. There will be free counseling services, seminars, and discussions on mental well-being.": "This campaign aims to raise awareness about mental health, break stigmas, and provide valuable resources. There will be free counseling services, seminars, and discussions on mental well-being.",
+  "Free Health Screening and Vaccination Drive": "Free Health Screening and Vaccination Drive",
+  "Join us for a day of free health screenings and vaccination services. We aim to promote preventive healthcare and ensure everyone has access to essential health services.": "Join us for a day of free health screenings and vaccination services. We aim to promote preventive healthcare and ensure everyone has access to essential health services.",
+  "Join the Drive": "Join the Drive",
+
+         
+
+
+
+
+
+
+
+
+
+  "Find Your Doctor": "Find Your Doctor",
+  "Search for the best specialists around you": "Search for the best specialists around you",
+  "Search by name": "Search by name",
+  "All Specialties": "All Specialties",
+  "Specialization": "Specialization",
+  "Phone": "Phone",
+  "Email": "Email",
+  "Availability": "Availability",
+
+
+  "First Aid Instructions": "First Aid Instructions",
+  "Learn essential first aid techniques for emergency situations": "Learn essential first aid techniques for emergency situations",
+  "Search by disease (e.g., Snake Bite)": "Search by disease (e.g., Snake Bite)",
+  "No instructions found for this disease. Try a different search.": "No instructions found for this disease. Try a different search.",
+  "Download First Aid Manual": "Download First Aid Manual",
+  "Click the link below to download a comprehensive first aid guide.": "Click the link below to download a comprehensive first aid guide.",
+  "Download Manual": "Download Manual",
+
+
+  "Find Medicines": "Find Medicines",
+  "Search and find medicines available at nearby stores": "Search and find medicines available at nearby stores",
+  "Search for a medicine...": "Search for a medicine...",
+  "Search by city...": "Search by city...",
+  "Loading...": "Loading...",
+  "Failed to load data": "Failed to load data",
+  "Description": "Description",
+  "Quantity": "Quantity",
+  "Price": "Price",
+  "No medicines found.": "No medicines found.",
+
+  "Consultation with Dr.": "Consultation with Dr.",
+  "Diagnosis": "Diagnosis",
+  "Prescription": "Prescription",
+  "Notes": "Notes",
+  "View Details": "View Details",
+  "Status": "Status",
+
+
+  "Name": "Name",
+  "Age": "Age",
+  "Gender": "Gender",
+  "Save Changes": "Save Changes",
+  "Edit Profile": "Edit Profile",
+  "Cancel": "Cancel",
+  "Consultations": "Consultations",
+  "Orders": "Orders",
+  "Order ID": "Order ID",
+  "Order Date": "Order Date",
+  "No consultations available": "No consultations available",
+  "No orders available": "No orders available",
+  "Loading patient data...": "Loading patient data...",
+  "Authentication token is missing. Please log in again.": "Authentication token is missing. Please log in again.",
+  "Error fetching consultations": "Error fetching consultations",
+  "Error updating patient data": "Error updating patient data",
+  "Error fetching patient data": "Error fetching patient data",
+  "years old": "years old",
+
+
+  "Video Consultation": "Video Consultation",
+  "Enter Verification ID": "Enter Verification ID",
+  "Enter ID": "Enter ID",
+  "Enter the ID shared by the other participant": "Enter the ID shared by the other participant",
+  "Invalid verification ID": "Invalid verification ID",
+  "Your verification ID is": "Your verification ID is",
+
+   "Click to view stores for this medicine": "Click to view stores for this medicine",
+
+
+   "Schedule an Appointment": "Schedule an Appointment",
+    "Error": "Error",
+    "Success": "Success",
+    "Appointment Scheduled Successfully!": "Appointment Scheduled Successfully!",
+    "Error scheduling appointment.": "Error scheduling appointment.",
+    "An error occurred. Please try again later.": "An error occurred. Please try again later.",
+    "Phone Number": "Phone Number",
+    "Enter your full name": "Enter your full name",
+    "Enter your phone number": "Enter your phone number",
+    "Enter your age": "Enter your age",
+    "Sex": "Sex",
+    "Select": "Select",
+    "Male": "Male",
+    "Female": "Female",
+    "Other": "Other",
+    "Description of Symptoms": "Description of Symptoms",
+    "Describe your symptoms": "Describe your symptoms",
+    "Selected Doctor": "Selected Doctor",
+    "Select a doctor": "Select a doctor",
+    "Select Doctor": "Select Doctor",
+    "Filter by specialty": "Filter by specialty",
+    "Submit Appointment Request": "Submit Appointment Request",
+
+
+
+    "City": "City",
+    "State": "State",
+    "Pincode": "Pincode",
+    "Create Patient": "Create Patient",
+    "Error creating patient": "Error creating patient",
+
+  "Store not found.": "Store not found.",
+  "No Image": "No Image",
+  "Address": "Address",
+  "Available Medicines": "Available Medicines",
+  "No medicines available.": "No medicines available.",
+  "Request Medicine": "Request Medicine",
+  "Place Order": "Place Order",
+  "Please select a medicine and quantity.": "Please select a medicine and quantity.",
+  "Order placed successfully!": "Order placed successfully!",
+  "Error placing order, please try again.": "Error placing order, please try again.",
+  "available": "available",
+
+  "Available in:": "Available in:",
+  "Unknown City": "Unknown City",
+
+  "Available Stores": "Available Stores",
+  "Not Provided": "Not Provided",
+  "Contact Store": "Contact Store",
+
+
+  "Patients": "Patients",
+
+
+
+  "Wellness Wonders: Where Hope Meets Health": "Wellness Wonders: Where Hope Meets Health",
+  "Reaching Elderly Patients with Limited Mobility": "Reaching Elderly Patients with Limited Mobility",
+  "Telemedicine allows elderly patients with mobility limitations to consult doctors from the comfort of their homes, making healthcare more accessible and convenient for them.": "Telemedicine allows elderly patients with mobility limitations to consult doctors from the comfort of their homes, making healthcare more accessible and convenient for them.",
+  "Access to Doctors Anytime, Anywhere": "Access to Doctors Anytime, Anywhere",
+  "Telemedicine has broken down geographical barriers, enabling patients in remote areas to receive medical consultations anytime, without the need for travel.": "Telemedicine has broken down geographical barriers, enabling patients in remote areas to receive medical consultations anytime, without the need for travel.",
+  "Story of the Day: A Glimpse of Hope": "Story of the Day: A Glimpse of Hope",
+  "Telemedicine Saves a Life": "Telemedicine Saves a Life",
+  "You don’t just see patients—you see possibilities.": "You don’t just see patients—you see possibilities.",
+  "Your dedication turns challenges into triumphs, and your care creates brighter futures. Each moment spent with a patient reflects your incredible commitment to healing and hope.": "Your dedication turns challenges into triumphs, and your care creates brighter futures. Each moment spent with a patient reflects your incredible commitment to healing and hope.",
+  "All Rights Reserved.": "All Rights Reserved.",
+  "About": "About"
+
+}

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";  // Import useTranslation for i18n support
 
 const CreateAppointments = () => {
+  const { t } = useTranslation();  // Initialize translation function
   const [formData, setFormData] = useState({
     name: "",
     phoneNumber: "",
@@ -54,7 +56,6 @@ const CreateAppointments = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
 
     try {
       // Assuming JWT is stored in localStorage (adjust if needed)
@@ -79,17 +80,17 @@ const CreateAppointments = () => {
 
       const data = await response.json();
       if (response.ok) {
-        setSuccess("Your appointment has been scheduled successfully!");
+        setSuccess(t("Appointment Scheduled Successfully!"));
         console.log("Appointment Response:", data);
       } else {
-        setError("There was an issue scheduling your appointment.");
+        setError(t("Error scheduling appointment."));
         console.error("Error:", data);
       }
     } catch (error) {
-      setError("An error occurred. Please try again later.");
+      setError(t("An error occurred. Please try again later."));
       console.error("Error:", error);
     }
-    navigate("/appointments")
+    navigate("/appointments");
   };
 
   // Handle doctor selection
@@ -111,17 +112,17 @@ const CreateAppointments = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-50">
       <div className="bg-white shadow-2xl rounded-lg p-5 w-full max-w-lg">
         <h1 className="text-2xl font-bold text-center text-blue-600 mb-5">
-          Schedule an Appointment
+          {t("Schedule an Appointment")}
         </h1>
 
         {error && (
           <div className="text-red-600 text-sm mb-4">
-            <strong>Error:</strong> {error}
+            <strong>{t("Error")}:</strong> {error}
           </div>
         )}
         {success && (
           <div className="text-green-600 text-sm mb-4">
-            <strong>Success:</strong> {success}
+            <strong>{t("Success")}:</strong> {success}
           </div>
         )}
 
@@ -129,7 +130,7 @@ const CreateAppointments = () => {
           {/* Name Field */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">
-              Name
+              {t("Name")}
             </label>
             <input
               type="text"
@@ -137,7 +138,7 @@ const CreateAppointments = () => {
               value={formData.name}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your full name"
+              placeholder={t("Enter your full name")}
               required
             />
           </div>
@@ -145,7 +146,7 @@ const CreateAppointments = () => {
           {/* Phone Number Field */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">
-              Phone Number
+              {t("Phone Number")}
             </label>
             <input
               type="tel"
@@ -153,7 +154,7 @@ const CreateAppointments = () => {
               value={formData.phoneNumber}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your phone number"
+              placeholder={t("Enter your phone number")}
               required
             />
           </div>
@@ -161,7 +162,7 @@ const CreateAppointments = () => {
           {/* Age Field */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">
-              Age
+              {t("Age")}
             </label>
             <input
               type="number"
@@ -169,7 +170,7 @@ const CreateAppointments = () => {
               value={formData.age}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your age"
+              placeholder={t("Enter your age")}
               required
             />
           </div>
@@ -177,7 +178,7 @@ const CreateAppointments = () => {
           {/* Sex Field */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">
-              Sex
+              {t("Sex")}
             </label>
             <select
               name="sex"
@@ -186,24 +187,24 @@ const CreateAppointments = () => {
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             >
-              <option value="">Select</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
+              <option value="">{t("Select")}</option>
+              <option value="Male">{t("Male")}</option>
+              <option value="Female">{t("Female")}</option>
+              <option value="Other">{t("Other")}</option>
             </select>
           </div>
 
           {/* Symptoms Field */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">
-              Description of Symptoms
+              {t("Description of Symptoms")}
             </label>
             <textarea
               name="symptoms"
               value={formData.symptoms}
               onChange={handleChange}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Describe your symptoms"
+              placeholder={t("Describe your symptoms")}
               rows="3"
               required
             ></textarea>
@@ -212,7 +213,7 @@ const CreateAppointments = () => {
           {/* Doctor Name Field */}
           <div>
             <label className="block text-sm font-bold text-gray-700 mb-1">
-              Selected Doctor
+              {t("Selected Doctor")}
             </label>
             <input
               type="text"
@@ -220,7 +221,7 @@ const CreateAppointments = () => {
               value={formData.doctorName}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               readOnly
-              placeholder="Select a doctor"
+              placeholder={t("Select a doctor")}
             />
           </div>
 
@@ -231,7 +232,7 @@ const CreateAppointments = () => {
               onClick={handleSearchDoctor}
               className="w-full bg-blue-500 text-white py-2 rounded-lg shadow-md font-semibold hover:bg-blue-600 hover:shadow-lg transition duration-300"
             >
-              Select Doctor
+              {t("Select Doctor")}
             </button>
           </div>
 
@@ -259,8 +260,8 @@ const CreateAppointments = () => {
                     color: "white",
                   }}
                 >
-                  <h1>Find Your Doctor</h1>
-                  <p>Search for the best specialists around you</p>
+                  <h1>{t("Find Your Doctor")}</h1>
+                  <p>{t("Search for the best specialists around you")}</p>
                 </header>
 
                 {/* Filters */}
@@ -277,14 +278,14 @@ const CreateAppointments = () => {
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search by name"
+                    placeholder={t("Search by name")}
                     className="p-2 border border-gray-300 rounded-lg"
                   />
                   <select
                     onChange={(e) => setFilterSpecialty(e.target.value)}
                     className="p-2 border border-gray-300 rounded-lg"
                   >
-                    <option value="">Filter by specialty</option>
+                    <option value="">{t("Filter by specialty")}</option>
                     {uniqueSpecialties.map((specialty) => (
                       <option key={specialty} value={specialty}>
                         {specialty}
@@ -313,7 +314,7 @@ const CreateAppointments = () => {
                         onClick={() => handleSelectDoctor(doctor)}
                         className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-2"
                       >
-                        Select Doctor
+                        {t("Select Doctor")}
                       </button>
                     </div>
                   ))}
@@ -326,7 +327,7 @@ const CreateAppointments = () => {
             type="submit"
             className="w-full bg-green-500 text-white py-2 rounded-lg shadow-md font-semibold hover:bg-green-600 hover:shadow-lg transition duration-300"
           >
-            Submit Appointment Request
+            {t("Submit Appointment Request")}
           </button>
         </form>
       </div>

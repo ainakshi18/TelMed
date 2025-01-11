@@ -48,7 +48,7 @@ const LoginPage = () => {
           localStorage.setItem("storejwt", token);
 
           localStorage.setItem("storeId", userId);
-          navigate("/medical-store-dashboard");
+          navigate("/createStore");
         } else {
           setError("Unknown role. Please try again.");
         }

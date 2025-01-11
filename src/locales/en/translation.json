@@ -1,0 +1,58 @@
+{
+  "home": {
+    "title": "Aarogya Dwaar",
+    "subtitle": "Your Gateway to Health and Healing"
+  },
+  "imageGallery": {
+    "imageAlt1": "Image 1 description",
+    "imageAlt2": "Image 2 description"
+  },
+  "quotes": {
+    "quote1": "Health is the greatest wealth.",
+    "quote2": "An ounce of prevention is worth a pound of cure.",
+    "quote3": "Your health is an investment, not an expense."
+  },
+  "features": {
+    "title": "Our Features",
+    "videoConsultation": {
+      "title": "Video Consultation with AI Assistance",
+      "description": "Virtual doctor consultations supported by AI for preliminary symptom analysis."
+    },
+    "digitalRecords": {
+      "title": "Digital Health Records",
+      "description": "Cloud-based storage for patients’ medical histories, accessible from any location."
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "question1": {
+      "title": "How do I make an appointment?",
+      "answer": "You can make an appointment by clicking on the Doctors image in the Doctor section."
+    },
+    "question2": {
+      "title": "Do I need to create an account to book an appointment?",
+      "answer": "Yes, to streamline the booking process and provide better services, we recommend creating an account."
+    }
+  },
+  "footer": {
+    "logo": "HealthTech",
+    "tagline": "Your health, our priority. Empowering healthcare with technology.",
+    "links": {
+      "home": "Home",
+      "about": "About Us",
+      "services": "Services",
+      "contact": "Contact"
+    },
+    "copyright": "HealthTech. All rights reserved."
+  },  
+  "logo": "Health App",
+  "nav": {
+    "home": "Home",
+    "doctors": "Doctors",
+    "awareness": "Awareness",
+    "firstAid": "First Aid",
+    "medicalStore": "Medical Store",
+    "appointments": "Appointments",
+    "signIn": "Sign In"
+  }
+} 

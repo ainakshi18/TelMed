@@ -1,7 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';  // Import useTranslation from react-i18next
 
 const MedicineCard = ({ medicine }) => {
+  const { t } = useTranslation();  // Initialize translation function
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -33,6 +35,7 @@ const MedicineCard = ({ medicine }) => {
     >
       <h2 className="text-xl font-semibold">{medicine.name}</h2>
       <p className="text-gray-600">{medicine.description}</p>
+      <p className="text-sm text-gray-500">{t("Click to view stores for this medicine")}</p>
     </div>
   );
 };

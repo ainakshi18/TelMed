@@ -28,21 +28,14 @@ import SelectDoctor from "./Components/Patients/SelectDoctor";
 import PatientAppointments from "./Components/Patients/PatientAppointments";
 import VideoCallPage from "./Components/Doctors/VedioCallPage";
 import CreatePrescription from "./Components/Doctors/CreatePrescription";
+import MedicalStoreForm from "./Components/Store/MedicalStoreCreate";
+import StorePatientRequestBoard from "./Components/Store/StoreProfile";
+import MedicalStoreProfile from "./Components/Store/StoreProfile";
+import PatientList from "./Components/Patients/PatientList";
+import Chat from "./Components/Patients/Chat";
 
 function App() {
-  // if ("serviceWorker" in navigator) {
-  //   window.addEventListener("load", () => {
-  //     navigator.serviceWorker
-  //       .register("/sw.js")
-  //       .then((registration) => {
-  //         console.log("Service Worker registered: ", registration);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Service Worker registration failed: ", error);
-  //       });
-  //   });
-  // }
-
+  
   return (
     <>
       <Routes>
@@ -60,7 +53,7 @@ function App() {
         <Route path="/stores/:storeId" element={<StoreDetails />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-
+        <Route path="/:id/patientList" element={<PatientList />} />
         {/* <Route path="/appointments" element={<AppointmentsDashboard />} /> */}
         <Route path="/appointments/:doctorId" element={<AppointmentsPatient />} />
         <Route path="/video-call/:id" element={<VideoCallPage/>} />
@@ -71,11 +64,17 @@ function App() {
         <Route path="/doctor/appointments" element={<DoctorAppointments />}/>
         <Route path="/doctor/patient-history" element={<DoctorPatientHistory />}/>
 
+        
+
         <Route path="/medical-store-dashboard" element={<StoreDashboard />} />
-        <Route path="/medical-store-profile" element={<StoreProfile />} />
+        <Route path="/medical-store-profile" element={<MedicalStoreProfile />} />
+        <Route path="/createStore" element={<MedicalStoreForm />} />
         <Route path="/store/stock" element={<StoreStock />} />
         <Route path="/store/PatientRequest" element={<StorePatientRequest />} />
         <Route path="/store/Orders" element={<StoreOrders />} />
+        <Route path="/chat" element={<Chat/>} />
+
+        
       </Routes>
     </>
   );

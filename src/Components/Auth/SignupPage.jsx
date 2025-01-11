@@ -50,7 +50,7 @@ const SignupPage = () => {
         localStorage.setItem("storejwt", token);
           
         localStorage.setItem("storeId", userId);
-        navigate("/medical-store-dashboard");
+        navigate("/medical-store-profile");
       } else {
         setError("Unknown role. Please try again.");
       }

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { useTranslation } from "react-i18next";  // Import useTranslation from react-i18next
 import johnImage from "../../Images/doc1.jpeg";  // Placeholder image for now
 
 const SelectDoctor = () => {
+    const { t } = useTranslation();  // Initialize translation function
     const [search, setSearch] = useState("");
     const [filterSpecialty, setFilterSpecialty] = useState("");
     const [filterLocation, setFilterLocation] = useState("");
     const [doctors, setDoctors] = useState([]);
-  
+
     // Fetch doctors data from the backend
     useEffect(() => {
       const token = localStorage.getItem("jwt"); // Assuming JWT token is saved in localStorage
@@ -22,16 +24,16 @@ const SelectDoctor = () => {
         .then((data) => setDoctors(data))  // Save the doctor data into state
         .catch((error) => console.error("Error fetching doctors:", error));
     }, []);
-  
+
     const filteredDoctors = doctors.filter(
       (doctor) =>
         doctor.name.toLowerCase().includes(search.toLowerCase()) &&
         (!filterSpecialty || doctor.specialization === filterSpecialty)
     );
-  
+
     // Get unique specialties for filtering
     const uniqueSpecialties = [...new Set(doctors.map((doctor) => doctor.specialization))];
-  
+
     return (
       <div
         style={{
@@ -54,10 +56,10 @@ const SelectDoctor = () => {
             color: "white",
           }}
         >
-          <h1>Find Your Doctor</h1>
-          <p>Search for the best specialists around you</p>
+          <h1>{t("Find Your Doctor")}</h1>
+          <p>{t("Search for the best specialists around you")}</p>
         </header>
-  
+
         {/* Filters */}
         <div
           style={{
@@ -70,7 +72,7 @@ const SelectDoctor = () => {
         >
           <input
             type="text"
-            placeholder="Search by name"
+            placeholder={t("Search by name")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             style={{
@@ -90,7 +92,7 @@ const SelectDoctor = () => {
               width: "200px",
             }}
           >
-            <option value="">All Specialties</option>
+            <option value="">{t("All Specialties")}</option>
             {uniqueSpecialties.map((specialty) => (
               <option key={specialty} value={specialty}>
                 {specialty}
@@ -98,7 +100,7 @@ const SelectDoctor = () => {
             ))}
           </select>
         </div>
-  
+
         {/* Doctors Grid */}
         <div
           style={{
@@ -128,27 +130,26 @@ const SelectDoctor = () => {
               onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
             >
-           
               <div style={{ padding: "15px" }}>
                 <h2 style={{ color: "#007bff", margin: "10px 0" }}>{doctor.name}</h2>
                 <p style={{ margin: "5px 0", fontSize: "1rem" }}>
-                  <strong>Specialization:</strong> {doctor.specialization}
+                  <strong>{t("Specialization")}:</strong> {doctor.specialization}
                 </p>
                 <p style={{ margin: "5px 0", fontSize: "1rem" }}>
-                  <strong>Phone:</strong> {doctor.phone}
+                  <strong>{t("Phone")}:</strong> {doctor.phone}
                 </p>
                 <p style={{ margin: "5px 0", fontSize: "1rem" }}>
-                  <strong>Email:</strong> {doctor.email}
+                  <strong>{t("Email")}:</strong> {doctor.email}
                 </p>
                 <p style={{ margin: "5px 0", fontSize: "1rem" }}>
-                  <strong>Availability:</strong> {doctor.availability.join(", ")}
+                  <strong>{t("Availability")}:</strong> {doctor.availability.join(", ")}
                 </p>
               </div>
             </div>
           ))}
         </div>
       </div>
-      )
+    );
 }
 
-export default SelectDoctor
+export default SelectDoctor;

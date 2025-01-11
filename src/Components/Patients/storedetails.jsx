@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';  // Import useTranslation for i18n support
 
 const StoreDetails = () => {
+  const { t } = useTranslation();  // Initialize translation function
   const { storeId } = useParams();
   const [store, setStore] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,15 +37,11 @@ const StoreDetails = () => {
   const handleOrderSubmit = async (e) => {
     e.preventDefault();
     if (!selectedMedicine || !orderQuantity) {
-      setOrderMessage('Please select a medicine and quantity.');
+      setOrderMessage(t('Please select a medicine and quantity.'));
       return;
     }
-console.log(storeId)
 
-console.log(selectedMedicine.id)
-
-console.log(orderQuantity)
-try {
+    try {
       const token = localStorage.getItem('jwt');
       const response = await axios.post(
         `http://localhost:8181/api/order`,
@@ -56,17 +54,17 @@ try {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setOrderMessage('Order placed successfully!');
+      setOrderMessage(t('Order placed successfully!'));
       console.log(response.data);
     } catch (err) {
       console.error('Error placing order:', err);
-      setOrderMessage('Error placing order, please try again.');
+      setOrderMessage(t('Error placing order, please try again.'));
     }
   };
 
-  if (isLoading) return <p className="text-center text-gray-500">Loading...</p>;
+  if (isLoading) return <p className="text-center text-gray-500">{t('Loading...')}</p>;
 
-  if (!store) return <p className="text-center text-red-500">Store not found.</p>;
+  if (!store) return <p className="text-center text-red-500">{t('Store not found.')}</p>;
 
   return (
     <div className="container mx-auto p-6">
@@ -81,7 +79,7 @@ try {
             />
           ) : (
             <div className="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center mb-4">
-              <span className="text-xl text-gray-600">No Image</span>
+              <span className="text-xl text-gray-600">{t('No Image')}</span>
             </div>
           )}
           <h1 className="text-3xl font-bold text-gray-800">{store.name}</h1>
@@ -90,14 +88,14 @@ try {
         </div>
 
         <div className="mb-4">
-          <h2 className="text-2xl font-semibold text-gray-800">Address:</h2>
+          <h2 className="text-2xl font-semibold text-gray-800">{t('Address')}:</h2>
           <p className="text-lg text-gray-600">
             {store.address?.street}, {store.address?.city}, {store.address?.state}
             {store.address?.zipCode ? `, ${store.address?.zipCode}` : ''}
           </p>
         </div>
         <div className="mb-4">
-          <h2 className="text-2xl font-semibold text-gray-800">Available Medicines:</h2>
+          <h2 className="text-2xl font-semibold text-gray-800">{t('Available Medicines')}:</h2>
           {store.availableMedicines && store.availableMedicines.length > 0 ? (
             <ul className="list-disc pl-5 text-lg text-gray-600">
               {store.availableMedicines.map((medicine, index) => (
@@ -106,22 +104,22 @@ try {
                   className="cursor-pointer"
                   onClick={() => setSelectedMedicine(medicine)}
                 >
-                  {medicine.name} - {medicine.quantity} available
+                  {medicine.name} - {medicine.quantity} {t('available')}
                 </li>
               ))}
             </ul>
           ) : (
-            <p className="text-lg text-gray-600">No medicines available.</p>
+            <p className="text-lg text-gray-600">{t('No medicines available.')}</p>
           )}
         </div>
 
         {selectedMedicine && (
           <div className="mb-4">
             <h3 className="text-xl font-semibold text-gray-800">
-              Request Medicine: {selectedMedicine.name}
+              {t('Request Medicine')}: {selectedMedicine.name}
             </h3>
             <form onSubmit={handleOrderSubmit} className="mt-4">
-              <label className="block text-lg text-gray-600 mb-2">Quantity:</label>
+              <label className="block text-lg text-gray-600 mb-2">{t('Quantity')}:</label>
               <input
                 type="number"
                 value={orderQuantity}
@@ -134,7 +132,7 @@ try {
                 type="submit"
                 className="bg-blue-500 text-white p-2 rounded-lg w-full"
               >
-                Place Order
+                {t('Place Order')}
               </button>
             </form>
             {orderMessage && (

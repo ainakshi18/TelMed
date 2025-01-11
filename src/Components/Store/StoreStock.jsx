@@ -1,37 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StoreNavbar from '../NavBar/StoreNavbar';
-const StoreStock = () => {
-  // Sample stock data (In a real app, this data would come from a backend API)
-  const [stocks, setStocks] = useState([
-    {
-      id: 1,
-      name: 'Paracetamol',
-      description: 'Pain reliever and fever reducer',
-      expiryDate: '2025-12-31',
-      available: true,
-      quantity: 50,
-      photo: '/api/placeholder/100/100', // Placeholder image
-    },
-    {
-      id: 2,
-      name: 'Aspirin',
-      description: 'Anti-inflammatory drug',
-      expiryDate: '2025-10-15',
-      available: false,
-      quantity: 0,
-      photo: '/api/placeholder/100/100', // Placeholder image
-    },
-    {
-      id: 3,
-      name: 'Ibuprofen',
-      description: 'Pain reliever, anti-inflammatory',
-      expiryDate: '2025-07-01',
-      available: true,
-      quantity: 30,
-      photo: '/api/placeholder/100/100', // Placeholder image
-    },
-  ]);
 
+const MedicineStock = () => {
+  const [stocks, setStocks] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newStock, setNewStock] = useState({
     name: '',
@@ -42,60 +13,89 @@ const StoreStock = () => {
     photo: '/api/placeholder/100/100', // Placeholder image
   });
   
-  const [searchQuery, setSearchQuery] = useState(''); // For filter
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [currentStock, setCurrentStock] = useState(null);
+
+  const jwtToken = localStorage.getItem('storejwt'); // Retrieve JWT from local storage
+  const storeId = localStorage.getItem('storeId'); // Retrieve Store ID from local storage
+
+  useEffect(() => {
+    // Fetch medicines for the store on component mount
+    fetch(`http://localhost:8181/api/medicalstore/${storeId}`, {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`, // Add JWT token to the request
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setStocks(data.availableMedicines))
+      .catch((error) => console.error('Error fetching medicines:', error));
+  }, [storeId, jwtToken]);
 
   const handleAddStock = (e) => {
     e.preventDefault();
+    
     const newStockItem = {
-      ...newStock,
-      id: stocks.length + 1, // Incrementing ID
-      available: newStock.quantity > 0, // Set availability based on quantity
+      storeId: [storeId], // Use the store ID from localStorage
+      name: newStock.name,
+      quantity: newStock.quantity,
+      price: newStock.price || 0.0, // You can add a price input field if needed
+      expiryDate: newStock.expiryDate,
+      description: newStock.description,
+      imageUrl: newStock.photo,
     };
-    setStocks([...stocks, newStockItem]);
-    setShowAddForm(false); // Close the form after adding
-    setNewStock({ name: '', description: '', expiryDate: '', available: true, quantity: 0, photo: '/api/placeholder/100/100' }); // Reset form
+  
+    // Make API POST request to add the new stock
+    fetch('http://localhost:8181/api/medicines', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwtToken}`, // Include JWT token for authentication
+      },
+      body: JSON.stringify(newStockItem),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // After successful POST, update the stock list with the new medicine
+        setStocks([...stocks, data]);
+        setShowAddForm(false); // Close the form after adding
+        setNewStock({ name: '', description: '', expiryDate: '', available: true, quantity: 0, photo: '/api/placeholder/100/100' }); // Reset form
+        console.log("store",response.data)
+      })
+      .catch((error) => console.error('Error adding medicine:', error));
   };
+  
 
-  // Filtered stocks based on search query
-  const filteredStocks = stocks.filter(stock =>
-    stock.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const handleUpdateStock = (e) => {
+    e.preventDefault();
+    // Update the stock
+    console.log(currentStock.id)
+    fetch(`http://localhost:8181/api/medicines/${currentStock.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${jwtToken}`,
+      },
+      body: JSON.stringify(currentStock),
+    })
+      .then((response) => response.json())
+      .then((updatedStock) => {
+        setStocks((prevStocks) =>
+          prevStocks.map((stock) =>
+            stock.id === updatedStock.id ? updatedStock : stock
+          )
+        );
+        setShowUpdateForm(false);
+      })
+      .catch((error) => console.error('Error updating stock:', error));
+      console.log("medicines",response.data)
 
-  const handleUpdateStock = (id) => {
-    // Find the stock by ID
-    const stockToUpdate = stocks.find((stock) => stock.id === id);
-    // Prompt for new values (this can be replaced with a modal or form)
-    const updatedStock = { ...stockToUpdate };
-
-    // Update logic (you can replace this with a better form or modal for ease of use)
-    const updatedName = prompt("Enter the new name:", updatedStock.name);
-    if (updatedName !== null) updatedStock.name = updatedName;
-
-    const updatedDescription = prompt("Enter the new description:", updatedStock.description);
-    if (updatedDescription !== null) updatedStock.description = updatedDescription;
-
-    const updatedExpiryDate = prompt("Enter the new expiry date:", updatedStock.expiryDate);
-    if (updatedExpiryDate !== null) updatedStock.expiryDate = updatedExpiryDate;
-
-    const updatedQuantity = prompt("Enter the new quantity:", updatedStock.quantity);
-    if (updatedQuantity !== null) updatedStock.quantity = parseInt(updatedQuantity, 10);
-
-    const updatedAvailable = updatedQuantity > 0; // Update availability based on quantity
-    updatedStock.available = updatedAvailable;
-
-    // Update the stock in the state
-    setStocks(stocks.map((stock) =>
-      stock.id === id ? updatedStock : stock
-    ));
   };
 
   const handleDeleteStock = (id) => {
-    // Delete the stock by filtering out the one with the matching id
     setStocks(stocks.filter((stock) => stock.id !== id));
   };
 
   const handleIncrementQuantity = (id) => {
-    // Increment the quantity of the stock item by 1
     setStocks(stocks.map((stock) => {
       if (stock.id === id) {
         const newQuantity = stock.quantity + 1;
@@ -106,7 +106,6 @@ const StoreStock = () => {
   };
 
   const handleDecrementQuantity = (id) => {
-    // Decrement the quantity of the stock item by 1 (not going below 0)
     setStocks(stocks.map((stock) => {
       if (stock.id === id) {
         const newQuantity = Math.max(stock.quantity - 1, 0);
@@ -116,22 +115,11 @@ const StoreStock = () => {
     }));
   };
 
-  return (
+  return (<>
+  <StoreNavbar/>
     <div className="min-h-screen bg-gray-50 p-6">
-      <StoreNavbar />
       <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold mb-6">Store Stock</h2>
-
-        {/* Search Bar for Filtering by Medicine Name */}
-        <div className="mb-6">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by medicine name..."
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-        </div>
+        <h2 className="text-2xl font-semibold mb-6">Medicine Stock</h2>
 
         {/* Add New Stock Button */}
         <button
@@ -222,9 +210,80 @@ const StoreStock = () => {
           </div>
         )}
 
+        {/* Update Stock Form (Modal) */}
+        {showUpdateForm && currentStock && (
+          <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50">
+            <form
+              onSubmit={handleUpdateStock}
+              className="bg-white p-6 rounded-lg shadow-lg w-1/2"
+            >
+              <h3 className="text-xl font-semibold mb-4">Update Stock</h3>
+
+              <div className="mb-4">
+                <label className="block text-sm text-gray-700">Medicine Name</label>
+                <input
+                  type="text"
+                  value={currentStock.name}
+                  onChange={(e) => setCurrentStock({ ...currentStock, name: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm text-gray-700">Description</label>
+                <textarea
+                  value={currentStock.description}
+                  onChange={(e) => setCurrentStock({ ...currentStock, description: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm text-gray-700">Expiry Date</label>
+                <input
+                  type="date"
+                  value={currentStock.expiryDate}
+                  onChange={(e) => setCurrentStock({ ...currentStock, expiryDate: e.target.value })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className="block text-sm text-gray-700">Quantity</label>
+                <input
+                  type="number"
+                  value={currentStock.quantity}
+                  onChange={(e) => setCurrentStock({ ...currentStock, quantity: parseInt(e.target.value) })}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+
+              <div className="flex justify-between">
+                <button
+                  type="button"
+                  onClick={() => setShowUpdateForm(false)}
+                  className="p-2 bg-gray-300 text-black rounded"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="p-2 bg-blue-500 text-white rounded"
+                >
+                  Update Stock
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+
         {/* Display Filtered Stock */}
         <div className="grid grid-cols-2 gap-6 mt-6">
-          {filteredStocks.map((stock) => (
+          {Array.isArray(stocks) && stocks.map((stock) => (
             <div key={stock.id} className="bg-white p-4 rounded-lg shadow-md">
               <img
                 src={stock.photo}
@@ -261,7 +320,10 @@ const StoreStock = () => {
                 {/* Update and Delete Buttons */}
                 <div className="flex gap-2">
                   <button
-                    onClick={() => handleUpdateStock(stock.id)}
+                    onClick={() => {
+                      setCurrentStock(stock);
+                      setShowUpdateForm(true);
+                    }}
                     className="bg-yellow-500 text-white p-2 rounded"
                   >
                     Update
@@ -278,8 +340,8 @@ const StoreStock = () => {
           ))}
         </div>
       </div>
-    </div>
+    </div></>
   );
 };
 
-export default StoreStock;
+export default MedicineStock;

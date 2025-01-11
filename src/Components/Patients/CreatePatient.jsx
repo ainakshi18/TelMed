@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';  // Import useTranslation for i18n support
 
 const CreatePatient = () => {
+  const { t } = useTranslation();  // Initialize translation function
   const [formData, setFormData] = useState({
     age: '',
     gender: '',
@@ -40,9 +42,8 @@ const CreatePatient = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('jwt'); // Assuming JWT is stored in localStorage
-console.log("clickeddddddddddd");
     if (!token) {
-      setError('Authentication token is missing. Please log in again.');
+      setError(t('Authentication token is missing. Please log in again.'));
       return;
     }
 
@@ -57,25 +58,22 @@ console.log("clickeddddddddddd");
           },
         }
       );
-console.log(response.data);
-console.log(response);
       if (response.status === 200) {
         // Navigate to patient-profile with response data
         navigate('/patient-profile', { state: { patient: response.data } });
-
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Error creating patient');
+      setError(err.response?.data?.message || t('Error creating patient'));
     }
   };
 
   return (
     <div className="max-w-md mx-auto p-4 bg-gray-100 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Create Patient</h2>
+      <h2 className="text-2xl font-bold mb-4">{t('Create Patient')}</h2>
       {error && <p className="text-red-500">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Age</label>
+          <label className="block text-sm font-medium mb-1">{t('Age')}</label>
           <input
             type="number"
             name="age"
@@ -86,7 +84,7 @@ console.log(response);
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Gender</label>
+          <label className="block text-sm font-medium mb-1">{t('Gender')}</label>
           <select
             name="gender"
             value={formData.gender}
@@ -94,14 +92,14 @@ console.log(response);
             required
             className="w-full px-3 py-2 border rounded-md"
           >
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
+            <option value="">{t('Select Gender')}</option>
+            <option value="Male">{t('Male')}</option>
+            <option value="Female">{t('Female')}</option>
+            <option value="Other">{t('Other')}</option>
           </select>
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">City</label>
+          <label className="block text-sm font-medium mb-1">{t('City')}</label>
           <input
             type="text"
             name="address.city"
@@ -112,7 +110,7 @@ console.log(response);
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">State</label>
+          <label className="block text-sm font-medium mb-1">{t('State')}</label>
           <input
             type="text"
             name="address.state"
@@ -123,7 +121,7 @@ console.log(response);
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Pincode</label>
+          <label className="block text-sm font-medium mb-1">{t('Pincode')}</label>
           <input
             type="text"
             name="address.pincode"
@@ -134,7 +132,7 @@ console.log(response);
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Phone</label>
+          <label className="block text-sm font-medium mb-1">{t('Phone')}</label>
           <input
             type="text"
             name="phone"
@@ -148,7 +146,7 @@ console.log(response);
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
         >
-          Create Patient
+          {t('Create Patient')}
         </button>
       </form>
     </div>

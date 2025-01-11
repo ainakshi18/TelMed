@@ -1,115 +1,204 @@
-import React, { useState } from 'react';
-import StoreNavbar from '../NavBar/StoreNavbar';
-// Sample Data - Patient Requests (Ideally, this would come from a backend)
-const requestData = [
-  {
-    id: 1,
-    patientName: 'Alice Johnson',
-    location: '123 Medical Street, City',
-    medicine: 'Aspirin',
-    description: 'Need medication for headache.',
-    status: 'Pending',
-    timestamp: '2025-01-05T10:30:00Z', // ISO 8601 format
-  },
-  {
-    id: 2,
-    patientName: 'Bob Williams',
-    location: '456 Health Avenue, City',
-    medicine: 'Ibuprofen',
-    description: 'Request for fever relief medication.',
-    status: 'Pending',
-    timestamp: '2025-01-05T11:00:00Z',
-  },
-  {
-    id: 3,
-    patientName: 'Charlie Davis',
-    location: '789 Wellness Road, City',
-    medicine: 'Paracetamol',
-    description: 'Need medicine for cold.',
-    status: 'Accepted',
-    timestamp: '2025-01-04T09:45:00Z',
-  },
-];
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const StorePatientRequestBoard = () => {
-  const [requests, setRequests] = useState(requestData);
+const MedicalStoreProfile = () => {
+  // State variables for the form fields
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipcode, setZipcode] = useState('');
+  const [phone, setPhone] = useState('');
+  const [isEditing, setIsEditing] = useState(false); // Track edit mode
 
-  const handleRequestStatus = (id, status) => {
-    const updatedRequests = requests.map((request) =>
-      request.id === id ? { ...request, status: status } : request
-    );
-    setRequests(updatedRequests);
-  };
+  const navigate = useNavigate();
+  
+  const jwtToken = localStorage.getItem('storejwt');
+  const storeId = localStorage.getItem('storeId');
+  // Function to fetch the initial store profile data
+  useEffect(() => {
+    const fetchStoreData = async () => {
 
-  const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    return date.toLocaleString(); // Format to a readable date-time string
+      try {
+        const response = await fetch(`http://localhost:8181/api/medicalstore/${storeId}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        });
+
+        const data = await response.json();
+
+        if (data) {
+          setStreet(data.address.street);
+          setCity(data.address.city);
+          setState(data.address.state);
+          setZipcode(data.address.zipcode);
+          setPhone(data.phone);
+        }
+      } catch (error) {
+        console.error('Error fetching store data:', error);
+      }
+    };
+
+    fetchStoreData();
+  }, [storeId]); // Fetch data when component mounts
+
+  // Function to handle form submission for updating store data
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const jwtToken = localStorage.getItem('storejwt');
+
+    const formData = {
+      address: {
+        street,
+        city,
+        state,
+        zipcode,
+      },
+      phone,
+    };
+
+    try {
+      const response = await fetch(`http://localhost:8181/api/medicalstore/${storeId}`, {
+        method: 'PUT', // Use PUT to update data
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+      console.log('Success:', result);
+
+      // Save updated data to localStorage
+      localStorage.setItem('medicalStoreData', JSON.stringify(formData));
+      setIsEditing(false);
+      navigate(`/medical-store-profile`);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <StoreNavbar />
-      <div className="max-w-4xl mx-auto">
-        {/* Patient Request History Header */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold">Patient Request History</h2>
-          <div className="mt-6">
-            {requests.length === 0 ? (
-              <p>No patient requests yet.</p>
-            ) : (
-              <div className="space-y-4">
-                {requests.map((request) => (
-                  <div
-                    key={request.id}
-                    className="bg-white p-4 border rounded-lg shadow-md flex justify-between items-center"
-                  >
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg">{request.patientName}</h3>
-                      <p className="text-sm text-gray-600">Location: {request.location}</p>
-                      <p className="text-sm text-gray-600">Medicine: {request.medicine}</p>
-                      <p className="text-sm text-gray-600">Description: {request.description}</p>
-                      <p className="text-sm text-gray-600">Request Time: {formatTimestamp(request.timestamp)}</p>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <span
-                        className={`text-sm ${
-                          request.status === 'Accepted'
-                            ? 'text-green-600'
-                            : request.status === 'Rejected'
-                            ? 'text-red-600'
-                            : 'text-yellow-600'
-                        }`}
-                      >
-                        {request.status}
-                      </span>
-                      <div className="space-x-2">
-                        {request.status === 'Pending' && (
-                          <>
-                            <button
-                              onClick={() => handleRequestStatus(request.id, 'Accepted')}
-                              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
-                            >
-                              Accept
-                            </button>
-                            <button
-                              onClick={() => handleRequestStatus(request.id, 'Rejected')}
-                              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-                            >
-                              Reject
-                            </button>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="max-w-4xl w-full p-8 bg-white shadow-lg rounded-lg">
+        <h2 className="text-3xl font-bold text-center mb-8">
+          {isEditing ? 'Edit Medical Store Profile' : 'Medical Store Profile'}
+        </h2>
+
+        {isEditing ? (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="street" className="block text-sm font-medium text-gray-700">
+                Street:
+              </label>
+              <input
+                type="text"
+                id="street"
+                value={street}
+                onChange={(e) => setStreet(e.target.value)}
+                className="mt-1 block w-full px-5 py-3 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                City:
+              </label>
+              <input
+                type="text"
+                id="city"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className="mt-1 block w-full px-5 py-3 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                State:
+              </label>
+              <input
+                type="text"
+                id="state"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+                className="mt-1 block w-full px-5 py-3 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="zipcode" className="block text-sm font-medium text-gray-700">
+                Zipcode:
+              </label>
+              <input
+                type="text"
+                id="zipcode"
+                value={zipcode}
+                onChange={(e) => setZipcode(e.target.value)}
+                className="mt-1 block w-full px-5 py-3 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                Phone:
+              </label>
+              <input
+                type="text"
+                id="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="mt-1 block w-full px-5 py-3 border rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+
+            <div className="text-center">
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500"
+              >
+                Save Changes
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className="space-y-6">
+            <div>
+              <p><strong>Street:</strong> {street}</p>
+            </div>
+            <div>
+              <p><strong>City:</strong> {city}</p>
+            </div>
+            <div>
+              <p><strong>State:</strong> {state}</p>
+            </div>
+            <div>
+              <p><strong>Zipcode:</strong> {zipcode}</p>
+            </div>
+            <div>
+              <p><strong>Phone:</strong> {phone}</p>
+            </div>
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={() => setIsEditing(true)}
+                className="w-full bg-yellow-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-yellow-700 focus:ring-2 focus:ring-yellow-500"
+              >
+                Make Changes
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default StorePatientRequestBoard;
+export default MedicalStoreProfile;

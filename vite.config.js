@@ -6,66 +6,96 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
-      workbox: {
-        // Define caching strategies for specific routes
-        runtimeCaching: [
-          {
-            urlPattern: /^\/$/, // Home page route
-            handler: 'CacheFirst', // Cache first strategy
-            options: {
-              cacheName: 'home-page-cache',
-              expiration: {
-                maxEntries: 10, // Limit to 10 entries in the cache
-                maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
-              },
-            },
-          },
-          {
-            urlPattern: /\/awareness/, // Awareness page route
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'awareness-page-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
-              },
-            },
-          },
-          {
-            urlPattern: /\.(?:js|css|html)$/, // Cache JavaScript, CSS, and HTML files
-            handler: 'StaleWhileRevalidate', // Cache but check network for newer content
-            options: {
-              cacheName: 'static-assets-cache',
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 7, // Cache for 1 week
-              },
-            },
-          },
-        ],
+      // registerType: 'autoUpdate', // Automatically update the service worker
+      devOptions: {
+        enabled: true, // Enables PWA in development mode
       },
       manifest: {
-        name: 'Healthcare App',
-        short_name: 'HealthApp',
-        description: 'A healthcare application with offline capabilities',
+        name: 'My PWA App',
+        short_name: 'PWAApp',
+        description: 'A simple PWA built with React and Vite',
         theme_color: '#ffffff',
         icons: [
-          // {
-          //   src: '/pwa-192x192.png', // Ensure these paths are correct
-          //   sizes: '192x192',
-          //   type: 'image/png',
-          // },
-          // {
-          //   src: '/pwa-512x512.png', // Ensure these paths are correct
-          //   sizes: '512x512',
-          //   type: 'image/png',
-          // },
+          {
+            src: 'icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
         ],
       },
-      // You can also define the `start_url` and `display` mode here
-      start_url: '/',
-      display: 'standalone', // Show as a standalone app
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /\/patient-profile/,
+            handler: 'CacheFirst', // Cache the patient profile page
+            options: {
+              cacheName: 'patient-profile-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 7 days
+              },
+            },
+          },
+          {
+            urlPattern: /\/awareness/,
+            handler: 'CacheFirst', // Cache the awareness page
+            options: {
+              cacheName: 'awareness-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 7 days
+              },
+            },
+          },
+          {
+            urlPattern: /\/first-aid/,
+            handler: 'CacheFirst', // Cache the first-aid page
+            options: {
+              cacheName: 'first-aid-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 7 days
+              },
+            },
+          },
+          {
+            urlPattern: /\/doctor-dashboard/,
+            handler: 'CacheFirst', // Cache the doctor dashboard page
+            options: {
+              cacheName: 'doctor-dashboard-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // Cache for 7 days
+              },
+            },
+          },
+          {
+            urlPattern: ({ request }) => request.destination === 'image',
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'images-cache',
+              expiration: {
+                maxEntries: 50,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+              },
+            },
+          },
+          {
+            urlPattern: ({ request }) =>
+              request.destination === 'script' ||
+              request.destination === 'style',
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'static-resources',
+            },
+          },
+        ],
+      },
     }),
   ],
 });

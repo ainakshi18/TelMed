@@ -1,30 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import johnImage from "../../Images/doc1.jpeg";  // Placeholder image for now
-import DoctorNavbar from "../NavBar/DoctorNavbar";
+import { Link, useNavigate } from "react-router-dom";
+import johnImage from "../../Images/doc1.jpeg";
 import PatientNavbar from "../NavBar/PatientNavbar";
-// Import more images if needed for doctors
+import { useTranslation } from "react-i18next";
+import axios from "axios"; // Import axios for API calls
 
 const DoctorsPage = () => {
+  const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const [filterSpecialty, setFilterSpecialty] = useState("");
-  const [filterLocation, setFilterLocation] = useState("");
   const [doctors, setDoctors] = useState([]);
+  const navigate = useNavigate(); // useNavigate for navigation
 
-  // Fetch doctors data from the backend
   useEffect(() => {
-    const token = localStorage.getItem("jwt"); // Assuming JWT token is saved in localStorage
-    fetch("http://localhost:8181/api/doctor", {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setDoctors(data))  // Save the doctor data into state
+    const token = localStorage.getItem("jwt");
+    axios
+      .get("http://localhost:8181/api/doctor", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => setDoctors(response.data))
       .catch((error) => console.error("Error fetching doctors:", error));
   }, []);
+
+  const handleConsultation = (doctorId, patientId) => {
+    const token = localStorage.getItem("jwt");
+    const consultationData = {
+      patientId: patientId,
+      doctorId: doctorId,
+      date: new Date().toISOString().split("T")[0], // Today's date
+      diagnosis: "Pending", // Default diagnosis
+    };
+
+    axios
+      .post("http://localhost:8181/api/consultation/create", consultationData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      })
+      .then(() => {
+        // navigate("/consultation/waiting-time", { state: { doctorId, patientId } });
+      })
+      .catch((error) => console.error("Error creating consultation:", error));
+  };
 
   const filteredDoctors = doctors.filter(
     (doctor) =>
@@ -32,14 +52,21 @@ const DoctorsPage = () => {
       (!filterSpecialty || doctor.specialization === filterSpecialty)
   );
 
-  // Get unique specialties for filtering
   const uniqueSpecialties = [...new Set(doctors.map((doctor) => doctor.specialization))];
+
+  const handleOnDoctorClick = (status, id) => {
+    if (status) {
+      navigate(`/${id}/patientList`);
+    } else {
+      navigate("/appointment/form"); // Navigate to appointment form if doctor is offline
+    }
+  };
 
   return (
     <div
       style={{
         fontFamily: "Arial, sans-serif",
-        minHeight: "100vh", // Ensure full height
+        minHeight: "100vh",
         position: "relative",
         backgroundImage: 'url("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjg3MC10YW5nLTMxXzEuanBn.jpg")',
         backgroundSize: "cover",
@@ -47,8 +74,7 @@ const DoctorsPage = () => {
         backgroundAttachment: "fixed",
       }}
     >
-      <PatientNavbar/>
-      {/* Header */}
+      <PatientNavbar />
       <header
         style={{
           padding: "20px",
@@ -57,11 +83,10 @@ const DoctorsPage = () => {
           color: "white",
         }}
       >
-        <h1>Find Your Doctor</h1>
-        <p>Search for the best specialists around you</p>
+        <h1>{t("Find Your Doctor")}</h1>
+        <p>{t("Search for the best specialists around you")}</p>
       </header>
 
-      {/* Filters */}
       <div
         style={{
           display: "flex",
@@ -73,7 +98,7 @@ const DoctorsPage = () => {
       >
         <input
           type="text"
-          placeholder="Search by name"
+          placeholder={t("Search by name")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           style={{
@@ -93,7 +118,7 @@ const DoctorsPage = () => {
             width: "200px",
           }}
         >
-          <option value="">All Specialties</option>
+          <option value="">{t("All Specialties")}</option>
           {uniqueSpecialties.map((specialty) => (
             <option key={specialty} value={specialty}>
               {specialty}
@@ -102,7 +127,6 @@ const DoctorsPage = () => {
         </select>
       </div>
 
-      {/* Doctors Grid */}
       <div
         style={{
           display: "flex",
@@ -126,36 +150,73 @@ const DoctorsPage = () => {
               maxWidth: "300px",
               width: "100%",
               padding: "15px",
-              backgroundColor: "#fff", // Ensure cards have a white background to be visible
+              backgroundColor: "#fff",
+              position: "relative",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
             onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            onClick={() => handleOnDoctorClick(doctor.status, doctor.id)} // Update function here
           >
-            <Link to={`/appointment/form`}>
-              <img
-                src={doctor.imageUrl || johnImage}  // Use default image if no image is available
-                alt={doctor.name}
+            {doctor.status ? (
+              <span
                 style={{
-                  width: "100%",
-                  height: "200px",
-                  objectFit: "cover",
-                  margin: "0 auto",
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  backgroundColor: "green",
+                  color: "white",
+                  padding: "5px 10px",
+                  borderRadius: "5px",
+                  fontSize: "12px",
                 }}
-              />
-            </Link>
+              >
+                {t("Online")}
+              </span>
+            ) : (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  backgroundColor: "red",
+                  color: "white",
+                  padding: "5px 10px",
+                  borderRadius: "5px",
+                  fontSize: "12px",
+                }}
+              >
+                {t("Offline")}
+              </span>
+            )}
+
+            <img
+              src={doctor.imageUrl || johnImage}
+              alt={doctor.name}
+              style={{
+                width: "100%",
+                height: "200px",
+                objectFit: "cover",
+                margin: "0 auto",
+                cursor: doctor.status ? "pointer" : "not-allowed",
+              }}
+              onClick={() =>
+                doctor.status &&
+                handleConsultation(doctor.id, doctor.patientQueue[0]) // Use the first patient in queue
+              }
+            />
             <div style={{ padding: "15px" }}>
               <h2 style={{ color: "#007bff", margin: "10px 0" }}>{doctor.name}</h2>
               <p style={{ margin: "5px 0", fontSize: "1rem" }}>
-                <strong>Specialization:</strong> {doctor.specialization}
+                <strong>{t("Specialization")}:</strong> {doctor.specialization}
               </p>
               <p style={{ margin: "5px 0", fontSize: "1rem" }}>
-                <strong>Phone:</strong> {doctor.phone}
+                <strong>{t("Phone")}:</strong> {doctor.phone}
               </p>
               <p style={{ margin: "5px 0", fontSize: "1rem" }}>
-                <strong>Email:</strong> {doctor.email}
+                <strong>{t("Email")}:</strong> {doctor.email}
               </p>
               <p style={{ margin: "5px 0", fontSize: "1rem" }}>
-                <strong>Availability:</strong> {doctor.availability.join(", ")}
+                <strong>{t("Patients Waiting")}:</strong> {doctor.patientQueue?.length || 0}
               </p>
             </div>
           </div>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next'; // Import useTranslation
 import snakeImage from "../../Images/snake.jpeg"; // Correct relative path
 import heartImage from "../../Images/heart.png";
 import strokeImage from "../../Images/stroke.png";
 import burnImage from "../../Images/burn.png";
 import PatientNavbar from '../NavBar/PatientNavbar';
-
 
 // Example first aid instructions for various situations
 const firstAidInstructions = [
@@ -68,6 +68,7 @@ const firstAidInstructions = [
 ];
 
 const FirstAidPage = () => {
+  const { t } = useTranslation(); // Destructure t from useTranslation
   const [filter, setFilter] = useState("");
 
   // Filter instructions based on disease
@@ -100,10 +101,10 @@ const FirstAidPage = () => {
         }}
       >
         <h1 style={{ fontSize: '3.5em', marginBottom: '20px', color: '#fff', fontWeight: 'bold' }}>
-          First Aid Instructions
+          {t("First Aid Instructions")}
         </h1>
         <p style={{ fontSize: '1.5em', fontWeight: 'lighter', color: '#fff' }}>
-          Learn essential first aid techniques for emergency situations
+          {t("Learn essential first aid techniques for emergency situations")}
         </p>
       </header>
 
@@ -119,7 +120,7 @@ const FirstAidPage = () => {
       >
         <input
           type="text"
-          placeholder="Search by disease (e.g., Snake Bite)"
+          placeholder={t("Search by disease (e.g., Snake Bite)")}
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           style={{
@@ -191,7 +192,7 @@ const FirstAidPage = () => {
           ))
         ) : (
           <p style={{ fontSize: '1.5em', color: '#f44336', textAlign: 'center' }}>
-            No instructions found for this disease. Try a different search.
+            {t("No instructions found for this disease. Try a different search.")}
           </p>
         )}
       </div>
@@ -207,35 +208,34 @@ const FirstAidPage = () => {
           borderRadius: '10px',
         }}
       >
-        <h2 style={{ fontSize: '2.5em' }}>Download First Aid Manual</h2>
+        <h2 style={{ fontSize: '2.5em' }}>{t("Download First Aid Manual")}</h2>
         <p style={{ fontSize: '1.2em', marginBottom: '20px' }}>
-          Click the link below to download a comprehensive first aid guide.
+          {t("Click the link below to download a comprehensive first aid guide.")}
         </p>
         <a
-  href="/files/first-aid-manual.pdf"
-  download
-  style={{
-    padding: '15px 30px',
-    backgroundColor: '#ffffff',
-    color: '#28a745',
-    textDecoration: 'none',
-    borderRadius: '8px',
-    fontSize: '1.3em',
-    fontWeight: 'bold',
-    transition: 'background-color 0.3s ease, color 0.3s ease',
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.backgroundColor = '#218838';
-    e.currentTarget.style.color = '#fff';
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.backgroundColor = '#ffffff';
-    e.currentTarget.style.color = '#28a745';
-  }}
->
-  Download Manual
-</a>
-
+          href="/files/first-aid-manual.pdf"
+          download
+          style={{
+            padding: '15px 30px',
+            backgroundColor: '#ffffff',
+            color: '#28a745',
+            textDecoration: 'none',
+            borderRadius: '8px',
+            fontSize: '1.3em',
+            fontWeight: 'bold',
+            transition: 'background-color 0.3s ease, color 0.3s ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = '#218838';
+            e.currentTarget.style.color = '#fff';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = '#ffffff';
+            e.currentTarget.style.color = '#28a745';
+          }}
+        >
+          {t("Download Manual")}
+        </a>
       </div>
     </div>
   );
